@@ -1,44 +1,43 @@
-import { Header } from "../components/Header";
-import { SearchForm } from "../components/SearchForm";
-import { Sumarry } from "../components/Sumarry";
+import { Header } from '../components/Header'
+import { SearchForm } from '../components/SearchForm'
+import { Sumarry } from '../components/Sumarry'
 import * as C from './styles'
+import { transactionsContexts } from '../contexts/transactionsContexts'
+import { dateFormatter, priceFormatter } from '../utils/formatter'
+import { useContextSelector } from 'use-context-selector'
 
 export function Home() {
-    return (
-        <div>
-            <Header />
-            <Sumarry />
+  const transactions = useContextSelector(transactionsContexts, (context) => {
+    return context.transactions
+  })
+  console.log(transactions)
+  return (
+    <div>
+      <Header />
+      <Sumarry />
 
-
-            <C.TransactionsContainer>
-                <SearchForm/>
-                <C.Table>
-                    <tbody>
-                        <tr>
-                            <td width="50%">Desenvolvimento de site</td>
-                            <td>
-                                <C.PriceHighlight variant="income">
-                                    R$ 12.000,00
-                                </C.PriceHighlight>
-
-                            </td>
-                            <td>Venda</td>
-                            <td>13/04/2022</td>
-                        </tr>
-                        <tr>
-                            <td width="50%">Hamburguer</td>
-                            <td>
-                                <C.PriceHighlight variant="outcome">
-                                   - R$ 59,00
-                                </C.PriceHighlight>
-                            </td>
-                            <td>Alimentação</td>
-                            <td>13/04/2022</td>
-                        </tr>
-                    </tbody>
-                </C.Table>
-            </C.TransactionsContainer>
-
-        </div>
-    )
+      <C.TransactionsContainer>
+        <SearchForm />
+        <C.Table>
+          <tbody>
+            {transactions.map((item) => {
+              return (
+                <tr key={item.id}>
+                  <td width="50%">{item.description}</td>
+                  <td>
+                    <C.PriceHighlight variant={item.type}>
+                      {item.type === 'outcome' && '- '}
+                      {priceFormatter.format(item.price)}
+                    </C.PriceHighlight>
+                  </td>
+                  <td>{item.category}</td>
+                  <td>{dateFormatter.format(new Date(item.created_at))}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </C.Table>
+      </C.TransactionsContainer>
+    </div>
+  )
 }

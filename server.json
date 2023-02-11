@@ -1,0 +1,44 @@
+{
+  "transactions": [
+    {
+      "id": 1,
+      "description": "Desenvolvimento de Site",
+      "type": "income",
+      "category": "venda",
+      "price": 14000,
+      "created_at": "2023-02-09T01:14:41.507Z"
+    },
+    {
+      "id": 2,
+      "description": "Pizza",
+      "type": "outcome",
+      "category": "Alimentação",
+      "price": 30,
+      "created_at": "2023-02-09T01:14:41.507Z"
+    },
+    {
+      "description": "Loja virtual",
+      "price": 10000,
+      "category": "venda",
+      "type": "income",
+      "created_at": "2023-02-11T18:44:08.870Z",
+      "id": 3
+    },
+    {
+      "description": "Pastel",
+      "price": 5,
+      "category": "alimentacao",
+      "type": "outcome",
+      "created_at": "2023-02-11T18:49:18.192Z",
+      "id": 4
+    },
+    {
+      "description": "Livro",
+      "price": 50,
+      "category": "educacao",
+      "type": "outcome",
+      "created_at": "2023-02-11T19:02:18.361Z",
+      "id": 5
+    }
+  ]
+}
