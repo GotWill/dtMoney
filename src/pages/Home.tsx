@@ -6,11 +6,11 @@ import { transactionsContexts } from '../contexts/transactionsContexts'
 import { dateFormatter, priceFormatter } from '../utils/formatter'
 import { useContextSelector } from 'use-context-selector'
 
+
 export function Home() {
   const transactions = useContextSelector(transactionsContexts, (context) => {
     return context.transactions
   })
-  console.log(transactions)
   return (
     <div>
       <Header />
@@ -18,6 +18,7 @@ export function Home() {
 
       <C.TransactionsContainer>
         <SearchForm />
+       
         <C.Table>
           <tbody>
             {transactions.map((item) => {

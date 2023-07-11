@@ -9,7 +9,7 @@ import { useContextSelector } from 'use-context-selector'
 
 const newTransactionSchema = z.object({
   description: z.string(),
-  price: z.number(),
+  price: z.string().transform((val) => parseFloat(val)),
   category: z.string(),
   type: z.enum(['income', 'outcome']),
 })
@@ -24,21 +24,18 @@ export function NewModal() {
     },
   )
 
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: { isSubmitted },
-    reset,
-  } = useForm<newTransactionInputs>({
-    resolver: zodResolver(newTransactionSchema),
-    defaultValues: {
-      type: 'income',
-    },
-  })
+  const { control, register, handleSubmit, reset } =
+    useForm<newTransactionInputs>({
+      resolver: zodResolver(newTransactionSchema),
+      defaultValues: {
+        type: 'income',
+      },
+    })
 
   async function handleCreateNewtransaction(data: newTransactionInputs) {
     const { description, price, type, category } = data
+
+    console.log(data)
 
     await createTransaction({
       description,
@@ -68,10 +65,11 @@ export function NewModal() {
           />
           <input
             type="text"
-            placeholder="Preço"
-            {...register('price', { valueAsNumber: true })}
+            placeholder="Preco"
             required
+            {...register('price')}
           />
+
           <input
             type="text"
             placeholder="Categoria"
@@ -102,9 +100,7 @@ export function NewModal() {
             }}
           />
 
-          <button type="submit" disabled={isSubmitted}>
-            Cadastrar
-          </button>
+          <button type="submit">Cadastrar</button>
         </form>
       </C.Content>
     </Dialog.Portal>
